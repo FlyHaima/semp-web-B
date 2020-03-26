@@ -1,0 +1,50 @@
+/* 改变主题色变量 */
+$--color-primary: rgb(255, 68, 140);
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+// 浅色主题
+$light-theme: (
+  border-color: #eceeef,
+  font-color:#323232,
+  background-color:#fff
+);
+
+//深色主题
+$dark-theme: (
+  border-color: #000,
+  font-color:#c2c6d0,
+  background-color:#131925
+);
+
+//定义映射集合
+$themes: (
+  light: $light-theme,
+  dark: $dark-theme
+);
+//使用@mixin封装对应的方法,这些方法都通过@include  方法名(arg) 来实现调用.定义mixin方法
+@mixin themify($themes: $themes) {
+  @each $theme-name, $map in $themes {
+ 
+    .theme-#{$theme-name} & {
+      $theme-map: () !global;
+      @each $key, $value in $map {
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+ 
+      @content;
+ 
+      $theme-map: null !global;
+    }
+  }
+}
+ 
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+$color-danger:red;
+$color-white:#fff;

@@ -1,0 +1,14 @@
+
+@charset "utf-8";
+@import "./_themecolor"; /*引入配置*/
+
+//  header 的 background
+@mixin header_bg($color){
+  background:$color;
+  [data-theme="theme0"] & {
+    background:$header-background-theme0;
+  }
+  [data-theme="theme1"] & {
+    background:$header-background-theme1;
+  }
+}
